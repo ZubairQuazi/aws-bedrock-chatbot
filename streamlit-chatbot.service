@@ -1,0 +1,17 @@
+[Unit]
+Description=Streamlit Amazon Bedrock Chatbot
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/aws-bedrock-chatbot
+Environment=AWS_REGION=ap-south-1
+Environment=BEDROCK_MODEL_ID=anthropic.claude-3-haiku-20240307-v1:0
+Environment=PATH=/home/ubuntu/aws-bedrock-chatbot/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+ExecStart=/home/ubuntu/aws-bedrock-chatbot/.venv/bin/streamlit run /home/ubuntu/aws-bedrock-chatbot/app.py --server.address=0.0.0.0 --server.port=8501 --server.headless=true
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
